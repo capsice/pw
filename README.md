@@ -7,7 +7,7 @@ To install PW, run `install pw.sh [your-bin-dir]`.
 ## Configuration
 PW can be configured by editing the following parameters in the source code:
 
-+ `PASSLEN`: The length of generated passwords.
++ `PASSGENLEN`: The length of generated passwords.
 + `MAXPASSLEN`: The maximum length of user-entered passwords.
 + `PROGNAME`: The name of the program.
 + `BASEDIR`: The base directory for the program.
@@ -20,7 +20,7 @@ To use PW, run one of the following commands:
 + `pw del NAME`: Delete an entry named NAME.
 + `pw gen NAME`: Generate and save a random password in an entry named NAME.
 + `pw list`: List all saved entries.
-+ `pw export FILENAME`: Export the entire vault to a tar.gz file, including keys and entries.
++ `pw export FILENAME?`: Export the entire vault to a tar.gz file, including keys and entries.
 
 ## Encryption
 PW uses a 4096-bit RSA key pair to encrypt data, with the private key encrypted with AES-256 and protected with a user-defined passphrase. The keys and saved passwords can be exported with `pw export`. 
