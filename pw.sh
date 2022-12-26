@@ -5,11 +5,13 @@
 # defaults
 #
 
-PASSLEN="48"
+PASSGENLEN="48"
 MAXPASSLEN="192"
+
 PROGNAME="pw"
 BASEDIR="$HOME/.local/share"
 PWDIR="$BASEDIR/$PROGNAME"
+
 OSTTY="$(stty -g)"
 
 #
@@ -68,6 +70,7 @@ ask_pass() {
 
 ask_pass_twice() {
   local _tmp_resp _password_regex
+  _password_regex="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$"
 
   while :; do
     ask_pass "$1 (will not echo)"
@@ -83,6 +86,8 @@ ask_pass_twice() {
     [ ${#_resp} -lt 6 ] \
       && echo "password is too short (<6), try again" \
       && continue
+
+    echo "$_resp" | grep -qP "$_password_regex" || echo "! weak password!"
 
     _tmp_resp="$_resp"
     ask_pass "$1 (again)"
@@ -163,9 +168,9 @@ do_gen() {
   echo "* generating pw for $1"
   [ -e "$PWDIR/data/$1" ] \
     && die "$1 already exists. delete it with '$PROGNAME del $1'"
-  _resp="$(openssl rand -base64 "$PASSLEN")"
+  _resp="$(openssl rand -base64 "$PASSGENLEN")"
   encrypt "$_resp" "$PWDIR/data/$1"
-  echo "$1 : $_resp"
+  echo "* $1 : $_resp"
 }
 
 case "$1" in
@@ -207,4 +212,3 @@ case "$1" in
     fi
     ;;
 esac
-
