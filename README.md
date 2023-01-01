@@ -1,6 +1,10 @@
 # PW
 PW is a password manager for Unix-based systems that uses asymmetric keys for encryption. It depends on `openssl`, `tar`, and a `dash`-compatible shell (such as `ash` or `bash`).
 
+## Security
+PW is just a proof of concept and it implements a lot of somewhat low level encryption stuff which I only know the basics of, which you might know is a big no-no in cryptography.
+If you're looking for similar programs, take a look at [pash by dylanaraps](https://github.com/dylanaraps/pash). It uses GPG instead of OpenSSL and it's written in POSIX shell
+
 ## Install
 To install PW, run `install pw.sh [your-bin-dir]`.
 
@@ -24,6 +28,3 @@ To use PW, run one of the following commands:
 
 ## Encryption
 PW uses a 4096-bit RSA key pair to encrypt data, with the private key encrypted with AES-256 and protected with a user-defined passphrase. The keys and saved passwords can be exported with `pw export`. 
-
-## Compatibility
-PW is compatible with most modern Unix-based systems.
